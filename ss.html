@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News Feed Application</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    /* Login Page */
+    .login-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background: #0056b3;
+    }
+
+    /* News Feed Page */
+    .news-feed {
+      display: none;
+      width: 100%;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .news-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #007bff;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .logout-btn {
+      background: #ff4d4d;
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #cc0000;
+    }
+
+    .news-list {
+      margin-top: 20px;
+    }
+
+    .news-item {
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .news-item h3 {
+      color: #007bff;
+    }
+
+    .news-item p {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div class="login-container" id="loginPage">
+    <h2>Login to News Feed</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <p id="error" style="color:red; margin-top:10px;"></p>
+  </div>
+
+  <!-- News Feed Page -->
+  <div class="news-feed" id="newsFeedPage">
+    <div class="news-header">
+      <h2>Today's News Feed</h2>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="news-list" id="newsList"></div>
+  </div>
+
+  <script>
+    const sampleNews = [
+      {
+        title: "Global Markets Rally Amid Economic Optimism",
+        content: "Stocks surged globally today as investors welcomed positive economic indicators and easing inflation pressures."
+      },
+      {
+        title: "Tech Giants Announce New AI Partnerships",
+        content: "Several leading technology companies unveiled strategic partnerships aimed at advancing artificial intelligence research."
+      },
+      {
+        title: "Climate Change Summit 2025 Begins in Paris",
+        content: "World leaders gathered to discuss actionable plans to combat climate change and reduce global emissions."
+      },
+      {
+        title: "SpaceX Launches New Satellite Network",
+        content: "SpaceX successfully launched 60 new satellites, expanding its global broadband internet coverage."
+      },
+      {
+        title: "Sports: India Wins T20 World Cup 2025",
+        content: "In a thrilling final, India claimed victory in the T20 World Cup, marking a historic moment for cricket fans worldwide."
+      }
+    ];
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('error');
+
+      if (username === "user" && password === "1234") {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('newsFeedPage').style.display = 'block';
+        loadNews();
+      } else {
+        error.textContent = "Invalid username or password!";
+      }
+    }
+
+    function loadNews() {
+      const newsList = document.getElementById('newsList');
+      newsList.innerHTML = "";
+      sampleNews.forEach(news => {
+        const newsDiv = document.createElement('div');
+        newsDiv.classList.add('news-item');
+        newsDiv.innerHTML = `<h3>${news.title}</h3><p>${news.content}</p>`;
+        newsList.appendChild(newsDiv);
+      });
+    }
+
+    function logout() {
+      document.getElementById('newsFeedPage').style.display = 'none';
+      document.getElementById('loginPage').style.display = 'block';
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+  </script>
+</body>
+</html>
